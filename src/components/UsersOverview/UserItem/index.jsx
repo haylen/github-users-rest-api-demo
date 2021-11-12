@@ -11,7 +11,7 @@ const UserItem = ({ username }) => {
     <Link to={`/users/${userOverview.login}`}>
       <Image
         src={userOverview.avatarUrl}
-        alt="a kitten"
+        alt={`${userOverview.avatarUrl} avatar`}
         boxSize="250px"
         objectFit="cover"
       />
