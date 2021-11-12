@@ -6,8 +6,6 @@ import useLoadUserOverviews from 'hooks/useLoadUserOverviews';
 const UsersOverview = () => {
   const [loadedUsernames, isFetching, error] = useLoadUserOverviews();
 
-  if (isFetching) return 'Fetching...';
-
   if (error) return error;
 
   return (
@@ -19,6 +17,12 @@ const UsersOverview = () => {
           </Box>
         ))}
       </Flex>
+
+      {isFetching ? (
+        <Box p="20px" textAlign="center">
+          Fetching...
+        </Box>
+      ) : null}
     </Container>
   );
 };

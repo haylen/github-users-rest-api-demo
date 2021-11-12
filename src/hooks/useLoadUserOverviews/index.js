@@ -1,18 +1,23 @@
 import { useBoolean } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import { throttle } from 'lodash';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import { getUsers } from 'api/github';
+import { extractSinceIdFromLinkHeader, getUsers } from 'api/github';
 import { addUserOverviews } from 'components/UsersContextProvider/actions';
 import useLoadedUserOverviewUsernames from 'components/UsersContextProvider/hooks/useLoadedUserOverviewUsernames';
 import useUsersContext from 'components/UsersContextProvider/hooks/useUsersContext';
 import useMountedState from 'hooks/useMountedState';
 
+const INFINITE_SCROLL_BOTTOM_MARGIN = 300;
+
 const useLoadUserOverviews = () => {
   const { dispatch } = useUsersContext();
   const loadedUsernames = useLoadedUserOverviewUsernames();
 
-  const [isFetching, setIsFetching] = useBoolean();
+  const [isFetching, setIsFetching] = useBoolean(false);
   const [error, setError] = useState(false);
+
+  const [lastFetchedUserId, setLastFetchedUserId] = useState(null);
 
   const checkIsMounted = useMountedState();
 
@@ -20,8 +25,10 @@ const useLoadUserOverviews = () => {
     setIsFetching.on();
 
     try {
-      const payload = await getUsers();
+      const payload = await getUsers(lastFetchedUserId);
+      const sinceId = extractSinceIdFromLinkHeader(payload.headers.link);
 
+      setLastFetchedUserId(sinceId);
       dispatch(addUserOverviews(payload.data));
     } catch {
       if (!checkIsMounted()) return;
@@ -30,13 +37,35 @@ const useLoadUserOverviews = () => {
     }
 
     setIsFetching.off();
-  }, [setIsFetching, dispatch, checkIsMounted]);
+  }, [setIsFetching, lastFetchedUserId, dispatch, checkIsMounted]);
 
+  // Initial users batch fetching
   useEffect(() => {
     if (loadedUsernames?.length || isFetching || error) return;
 
     fetchGitHubUsers();
   }, [loadedUsernames, isFetching, error, fetchGitHubUsers]);
+
+  useLayoutEffect(() => {
+    const throttledFetch = throttle(() => {
+      const { scrollHeight, clientHeight, scrollTop } =
+        document.documentElement;
+
+      if (
+        !isFetching &&
+        scrollHeight - INFINITE_SCROLL_BOTTOM_MARGIN < clientHeight + scrollTop
+      ) {
+        fetchGitHubUsers();
+      }
+    }, 300);
+
+    window.addEventListener('scroll', throttledFetch);
+
+    return () => {
+      throttledFetch.cancel();
+      window.removeEventListener('scroll', throttledFetch);
+    };
+  }, [isFetching, fetchGitHubUsers]);
 
   return [
     loadedUsernames,
