@@ -3,8 +3,12 @@ import { throttle } from 'lodash';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import { extractSinceIdFromLinkHeader, getUsers } from 'api/github';
-import { addUserOverviews } from 'components/UsersContextProvider/actions';
+import {
+  addUserOverviews,
+  setUserIdForNextFetch,
+} from 'components/UsersContextProvider/actions';
 import useLoadedUserOverviewUsernames from 'components/UsersContextProvider/hooks/useLoadedUserOverviewUsernames';
+import useUserIdForNextFetch from 'components/UsersContextProvider/hooks/useUserIdForNextFetch';
 import useUsersContext from 'components/UsersContextProvider/hooks/useUsersContext';
 import useMountedState from 'hooks/useMountedState';
 
@@ -13,11 +17,10 @@ const INFINITE_SCROLL_BOTTOM_MARGIN = 300;
 const useLoadUserOverviews = () => {
   const { dispatch } = useUsersContext();
   const loadedUsernames = useLoadedUserOverviewUsernames();
+  const userIdForNextFetch = useUserIdForNextFetch();
 
   const [isFetching, setIsFetching] = useBoolean(false);
   const [error, setError] = useState(false);
-
-  const [lastFetchedUserId, setLastFetchedUserId] = useState(null);
 
   const checkIsMounted = useMountedState();
 
@@ -25,11 +28,11 @@ const useLoadUserOverviews = () => {
     setIsFetching.on();
 
     try {
-      const payload = await getUsers(lastFetchedUserId);
+      const payload = await getUsers(userIdForNextFetch);
       const sinceId = extractSinceIdFromLinkHeader(payload.headers.link);
 
-      setLastFetchedUserId(sinceId);
       dispatch(addUserOverviews(payload.data));
+      dispatch(setUserIdForNextFetch(sinceId));
     } catch {
       if (!checkIsMounted()) return;
 
@@ -37,7 +40,7 @@ const useLoadUserOverviews = () => {
     }
 
     setIsFetching.off();
-  }, [setIsFetching, lastFetchedUserId, dispatch, checkIsMounted]);
+  }, [setIsFetching, userIdForNextFetch, dispatch, checkIsMounted]);
 
   // Initial users batch fetching
   useEffect(() => {
@@ -50,13 +53,10 @@ const useLoadUserOverviews = () => {
     const throttledFetch = throttle(() => {
       const { scrollHeight, clientHeight, scrollTop } =
         document.documentElement;
+      const isInLoadMoreArea =
+        scrollHeight - INFINITE_SCROLL_BOTTOM_MARGIN < clientHeight + scrollTop;
 
-      if (
-        !isFetching &&
-        scrollHeight - INFINITE_SCROLL_BOTTOM_MARGIN < clientHeight + scrollTop
-      ) {
-        fetchGitHubUsers();
-      }
+      if (!isFetching && isInLoadMoreArea) fetchGitHubUsers();
     }, 300);
 
     window.addEventListener('scroll', throttledFetch);
