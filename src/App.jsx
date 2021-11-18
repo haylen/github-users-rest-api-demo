@@ -1,8 +1,8 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import UsersContextProvider from 'components/shared/UsersContextProvider';
 import UserDetails from 'components/UserDetails';
-import UsersContextProvider from 'components/UsersContextProvider';
 import UsersOverview from 'components/UsersOverview';
 import theme from 'config/theme';
 

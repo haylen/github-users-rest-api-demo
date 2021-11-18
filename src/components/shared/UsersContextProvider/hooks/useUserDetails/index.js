@@ -1,4 +1,4 @@
-import useUsersContext from 'components/UsersContextProvider/hooks/useUsersContext';
+import useUsersContext from 'components/shared/UsersContextProvider/hooks/useUsersContext';
 
 const useUserDetails = (username) => {
   const { state } = useUsersContext();

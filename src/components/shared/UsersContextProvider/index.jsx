@@ -3,7 +3,7 @@ import { createContext, useMemo, useReducer } from 'react';
 
 import reducer, {
   INITIAL_STATE,
-} from 'components/UsersContextProvider/reducers';
+} from 'components/shared/UsersContextProvider/reducers';
 
 export const UsersContext = createContext(INITIAL_STATE);
 

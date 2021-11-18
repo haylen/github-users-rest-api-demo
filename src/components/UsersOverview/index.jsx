@@ -1,6 +1,6 @@
 import { Box, Container, Flex } from '@chakra-ui/react';
 
-import InitialFetchSpinner from 'components/UsersOverview/InitialFetchSpinner';
+import InitialFetchSpinner from 'components/shared/InitialFetchSpinner';
 import LoadMoreSpinner from 'components/UsersOverview/LoadMoreSpinner';
 import UserItem from 'components/UsersOverview/UserItem';
 import useLoadUserOverviews from 'hooks/useLoadUserOverviews';

@@ -2,7 +2,7 @@ import { Box, Center, Image, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import useUserOverview from 'components/UsersContextProvider/hooks/useUserOverview';
+import useUserOverview from 'components/shared/UsersContextProvider/hooks/useUserOverview';
 
 const UserItem = ({ username }) => {
   const userOverview = useUserOverview(username);

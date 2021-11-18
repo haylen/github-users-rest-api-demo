@@ -6,10 +6,10 @@ import { extractSinceIdFromLinkHeader, getUsers } from 'api/github';
 import {
   addUserOverviews,
   setUserIdForNextFetch,
-} from 'components/UsersContextProvider/actions';
-import useLoadedUserOverviewUsernames from 'components/UsersContextProvider/hooks/useLoadedUserOverviewUsernames';
-import useUserIdForNextFetch from 'components/UsersContextProvider/hooks/useUserIdForNextFetch';
-import useUsersContext from 'components/UsersContextProvider/hooks/useUsersContext';
+} from 'components/shared/UsersContextProvider/actions';
+import useLoadedUserOverviewUsernames from 'components/shared/UsersContextProvider/hooks/useLoadedUserOverviewUsernames';
+import useUserIdForNextFetch from 'components/shared/UsersContextProvider/hooks/useUserIdForNextFetch';
+import useUsersContext from 'components/shared/UsersContextProvider/hooks/useUsersContext';
 import useMountedState from 'hooks/useMountedState';
 
 const INFINITE_SCROLL_BOTTOM_MARGIN = 300;

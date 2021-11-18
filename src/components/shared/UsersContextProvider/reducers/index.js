@@ -2,7 +2,7 @@ import {
   ADD_USER_OVERVIEWS,
   ADD_USER_DETAILS,
   SET_USER_ID_FOR_NEXT_FETCH,
-} from 'components/UsersContextProvider/actions';
+} from 'components/shared/UsersContextProvider/actions';
 
 export const INITIAL_STATE = {
   /**

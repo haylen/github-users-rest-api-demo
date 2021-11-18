@@ -2,9 +2,9 @@ import { useBoolean } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getUser } from 'api/github';
-import { addUserDetails } from 'components/UsersContextProvider/actions';
-import useContextUserDetails from 'components/UsersContextProvider/hooks/useUserDetails';
-import useUsersContext from 'components/UsersContextProvider/hooks/useUsersContext';
+import { addUserDetails } from 'components/shared/UsersContextProvider/actions';
+import useContextUserDetails from 'components/shared/UsersContextProvider/hooks/useUserDetails';
+import useUsersContext from 'components/shared/UsersContextProvider/hooks/useUsersContext';
 import useMountedState from 'hooks/useMountedState';
 
 const useLoadUserDetails = (username) => {

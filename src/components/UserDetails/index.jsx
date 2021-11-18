@@ -1,6 +1,7 @@
 import { Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 
+import InitialFetchSpinner from 'components/shared/InitialFetchSpinner';
 import useLoadUserDetails from 'hooks/useLoadUserDetails';
 
 const UserDetails = () => {
@@ -10,7 +11,7 @@ const UserDetails = () => {
 
   const [user, isFetching, error] = useLoadUserDetails(username);
 
-  if (isFetching) return 'Fetching...';
+  if (isFetching) return <InitialFetchSpinner />;
 
   if (error) return error;
 
