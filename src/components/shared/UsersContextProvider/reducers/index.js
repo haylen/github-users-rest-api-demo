@@ -60,8 +60,15 @@ const addUserDetailsReducer = (state, action) => {
     userDetails: {
       ...state.userDetails,
       [user.login]: {
-        login: user.login,
         avatarUrl: user.avatar_url,
+        bio: user.bio,
+        blog: user.blog,
+        createdAt: user.created_at,
+        followers: user.followers,
+        login: user.login,
+        name: user.name,
+        publicRepos: user.public_repos,
+        twitter: user.twitter_username,
       },
     },
   };
