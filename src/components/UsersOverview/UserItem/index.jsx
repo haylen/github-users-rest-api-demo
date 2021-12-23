@@ -26,7 +26,6 @@ const UserItem = ({ username }) => {
           <Image
             src={userOverview.avatarUrl}
             alt={`${userOverview.avatarUrl} avatar`}
-            align="center"
             mb="6"
             borderRadius="full"
             boxSize="8rem"

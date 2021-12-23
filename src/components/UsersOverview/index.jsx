@@ -17,7 +17,7 @@ const UsersOverview = () => {
     <Container maxW="container.lg">
       <Flex wrap="wrap" justify="center">
         {loadedUsernames.map((username) => (
-          <Box key={username} p="20px">
+          <Box key={username} p="1rem">
             <UserItem username={username} />
           </Box>
         ))}
