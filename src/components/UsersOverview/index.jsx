@@ -1,5 +1,6 @@
 import { Box, Container, Flex } from '@chakra-ui/react';
 
+import ViewError from 'components/shared/errors/ViewError';
 import InitialFetchSpinner from 'components/shared/InitialFetchSpinner';
 import LoadMoreSpinner from 'components/UsersOverview/LoadMoreSpinner';
 import UserItem from 'components/UsersOverview/UserItem';
@@ -11,7 +12,7 @@ const UsersOverview = () => {
   const isInitialFetching = isFetching && !loadedUsernames.length;
   const isSubsequentFetching = isFetching && !isInitialFetching;
 
-  if (error) return error;
+  if (error) return <ViewError>{error}</ViewError>;
 
   return (
     <Container maxW="container.lg">
