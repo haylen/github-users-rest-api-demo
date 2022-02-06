@@ -20,7 +20,7 @@ const useLoadUserOverviews = () => {
   const userIdForNextFetch = useUserIdForNextFetch();
 
   const [isFetching, setIsFetching] = useBoolean(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const checkIsMounted = useMountedState();
 
