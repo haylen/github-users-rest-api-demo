@@ -3,6 +3,7 @@ import { Box, Container, Flex } from '@chakra-ui/react';
 import ViewError from 'components/shared/errors/ViewError';
 import InitialFetchSpinner from 'components/shared/InitialFetchSpinner';
 import LoadMoreSpinner from 'components/UsersOverview/LoadMoreSpinner';
+import ScrollToTopButton from 'components/UsersOverview/ScrollToTopButton';
 import UserItem from 'components/UsersOverview/UserItem';
 import useLoadUserOverviews from 'hooks/useLoadUserOverviews';
 
@@ -16,6 +17,7 @@ const UsersOverview = () => {
 
   return (
     <Container maxW="container.lg">
+      <ScrollToTopButton />
       <Flex wrap="wrap" justify="center">
         {loadedUsernames.map((username) => (
           <Box key={username} p="1rem">
