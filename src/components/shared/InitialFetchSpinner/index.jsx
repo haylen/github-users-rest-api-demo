@@ -1,4 +1,4 @@
-import { Box, Spinner } from '@chakra-ui/react';
+import { Box, Spinner, useColorModeValue } from '@chakra-ui/react';
 
 const InitialFetchSpinner = () => (
   <Box
@@ -10,8 +10,8 @@ const InitialFetchSpinner = () => (
     <Spinner
       thickness="0.3rem"
       speed="0.65s"
-      emptyColor="gray.200"
-      color="gray.400"
+      emptyColor={useColorModeValue('gray.200', 'gray.700')}
+      color={useColorModeValue('gray.400', 'gray.900')}
       size="xl"
     />
   </Box>

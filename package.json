@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.8",
+    "@chakra-ui/theme-tools": "^2.0.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@octokit/request": "^5.6.1",

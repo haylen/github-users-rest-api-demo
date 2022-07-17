@@ -1,4 +1,10 @@
-import { Box, Button, Center, Container } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import ViewError from 'components/shared/errors/ViewError';
@@ -9,6 +15,8 @@ import SocialLinks from 'components/UserDetails/SocialLinks';
 import useLoadUserDetails from 'hooks/useLoadUserDetails';
 
 const UserDetails = () => {
+  const bgColor = useColorModeValue('gray.50', 'gray.700');
+
   const { username } = useParams();
 
   const history = useHistory();
@@ -25,7 +33,7 @@ const UserDetails = () => {
         Back
       </Button>
 
-      <Center bg="gray.50" borderRadius="xl" boxShadow="md" mt="6" py="8">
+      <Center bg={bgColor} borderRadius="xl" boxShadow="md" mt="6" py="8">
         <Box w="100%">
           <Box mb="8">
             <Avatar avatarUrl={user.avatarUrl} />

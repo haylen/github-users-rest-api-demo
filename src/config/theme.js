@@ -1,11 +1,13 @@
+import { mode } from '@chakra-ui/theme-tools';
+
 const theme = {
   styles: {
-    global: {
+    global: (props) => ({
       body: {
         minHeight: '100vh',
-        background: 'gray.100',
+        background: mode('gray.100', 'gray.800')(props),
       },
-    },
+    }),
   },
 };
 

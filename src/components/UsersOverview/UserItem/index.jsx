@@ -1,10 +1,12 @@
-import { Box, Center, Image, Text } from '@chakra-ui/react';
+import { Box, Center, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import useUserOverview from 'components/shared/UsersContextProvider/hooks/useUserOverview';
 
 const UserItem = ({ username }) => {
+  const bgColor = useColorModeValue('gray.50', 'gray.700');
+
   const userOverview = useUserOverview(username);
 
   return (
@@ -12,7 +14,7 @@ const UserItem = ({ username }) => {
       <Box
         w="12rem"
         p="6"
-        bg="gray.50"
+        bg={bgColor}
         borderRadius="xl"
         boxShadow="md"
         transitionProperty="box-shadow"

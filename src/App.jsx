@@ -2,6 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Error404 from 'components/shared/errors/Error404';
+import PageLayout from 'components/shared/PageLayout'
 import UsersContextProvider from 'components/shared/UsersContextProvider';
 import UserDetails from 'components/UserDetails';
 import UsersOverview from 'components/UsersOverview';
@@ -13,13 +14,13 @@ const App = () => (
       <Router>
         <Switch>
           <Route exact path="/">
-            <UsersOverview />
+            <PageLayout><UsersOverview /></PageLayout>
           </Route>
           <Route exact path="/users/:username">
-            <UserDetails />
+            <PageLayout><UserDetails /></PageLayout>
           </Route>
           <Route>
-            <Error404 />
+            <PageLayout><Error404 /></PageLayout>
           </Route>
         </Switch>
       </Router>
