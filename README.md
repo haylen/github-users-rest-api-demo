@@ -1,3 +1,4 @@
 # Showcase app for listing GitHub users using REST API
 
-TODO: Add description
+Sandbox app for playing with Chakra UI. Contains configs for eslint, prettier,
+precommit hook, etc.
